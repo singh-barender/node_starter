@@ -1,6 +1,6 @@
 import passport from 'passport';
-import UserModel from '@root/features/users/models/user.model';
 import { config } from '@root/config';
+import { findById } from '@root/features/auth/services/auth.service';
 import { Strategy as JwtStrategy, ExtractJwt, VerifiedCallback } from 'passport-jwt';
 
 const jwtOptions = {
@@ -11,7 +11,7 @@ const jwtOptions = {
 const passportJwt = passport.use(
   new JwtStrategy(jwtOptions, async (payload, done: VerifiedCallback) => {
     try {
-      const user = await UserModel.findById(payload._id);
+      const user = await findById(payload._id);
       if (!user) return done(null, false);
       return done(null, user);
     } catch (error) {

@@ -11,6 +11,20 @@ export const findUserByEmailOrUsernameSeparately = async (email: string, usernam
     .exec();
 };
 
+export const findById = async (userId: string): Promise<IUser | null> => {
+  return await UserModel.findById(userId);
+};
+
+// eslint-disable-next-line
+export const findOneByField = async (args: any): Promise<IUser | null> => {
+  return await UserModel.findOne(args);
+};
+
+// eslint-disable-next-line
+export const findAndUpdateById = async (userId: string, updateData: any): Promise<IUser | null> => {
+  return await UserModel.findByIdAndUpdate(userId, updateData, { new: true });
+};
+
 export async function createNewUser(userData: IUser) {
   return await UserModel.create(userData);
 }

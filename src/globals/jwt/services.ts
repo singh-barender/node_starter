@@ -2,21 +2,27 @@ import { IUser } from '@root/types/user.types';
 import { randomBytes, createHash } from 'crypto';
 import { compare, genSalt, hash } from 'bcryptjs';
 import { Secret, SignOptions, sign } from 'jsonwebtoken';
-import UserModel from '@root/features/users/models/user.model';
+import { findAndUpdateById, findOneByField } from '@root/features/auth/services/auth.service';
 
 export const generateActivationToken = async (userId: string): Promise<string> => {
   const randomBytesBuffer: Buffer = randomBytes(20);
   const randomCharacters: string = randomBytesBuffer.toString('hex');
   const confirmToken: string = createHash('sha256').update(randomCharacters).digest('hex');
-  await UserModel.findByIdAndUpdate(userId, { token: confirmToken, expires: Date.now() * 60 * 60 * 1000 });
+  await findAndUpdateById(userId, { token: confirmToken, expires: Date.now() * 60 * 60 * 1000 });
   return confirmToken;
 };
 
 export const verifyActivationToken = async (token: string): Promise<boolean> => {
-  const user: IUser | null = await UserModel.findOne({ token });
+  const user: IUser | null = await findOneByField({ token });
   if (!user || user.expires < Date.now()) return false;
-  await UserModel.findByIdAndUpdate(user._id, { token: null, expires: null, isActive: true });
+  await findAndUpdateById(user._id, { token: null, expires: null, isActive: true });
   return true;
+};
+
+export const verifyResetPasswordToken = async (token: string): Promise<{ _id: string; success: boolean } | boolean> => {
+  const user: IUser | null = await findOneByField({ token });
+  if (!user || user.expires < Date.now()) return false;
+  return { _id: user?._id, success: true };
 };
 
 export const generateHashPassword = async (password: string): Promise<string> => {
