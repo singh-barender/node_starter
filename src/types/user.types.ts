@@ -16,3 +16,5 @@ export interface IUser extends Document {
   isLogged: boolean;
   role: string;
 }
+
+export type UserSubset = Pick<IUser, '_id' | 'username' | 'firstName' | 'lastName' | 'role' | 'email'>;

@@ -5,7 +5,7 @@ import { StatusCodes } from 'http-status-codes';
 import { BadRequestError } from '@root/globals/helpers/error-handlers';
 import { accountActivationTemplate } from '@root/globals/templates/accountActivation';
 import { generateActivationToken, generateHashPassword } from '@root/globals/jwt/services';
-import { createNewUser, findUserByEmailOrUsernameSeparately } from '@root/features/auth/services/auth.service';
+import { createNewUser, findUserByEmailOrUsernameSeparately } from '@root/features/users/services/auth.service';
 
 const signup = async (req: Request, res: Response): Promise<void> => {
   const existingUser = await findUserByEmailOrUsernameSeparately(req.body.email, req.body.username);

@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { tokenTypes } from '@root/globals/constants/tokens';
 import { comparePassword, signJWT } from '@root/globals/jwt/services';
-import { findUserByEmailOrUsername } from '@root/features/auth/services/auth.service';
+import { findUserByEmailOrUsername } from '@root/features/users/services/auth.service';
 import { NotAuthorizedError, NotFoundError } from '@root/globals/helpers/error-handlers';
 
 const signin = async (req: Request, res: Response): Promise<void> => {

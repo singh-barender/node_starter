@@ -2,7 +2,7 @@ import { config } from '@root/config';
 import { IUser } from '@root/types/user.types';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import { findById } from '@root/features/auth/services/auth.service';
+import { findById } from '@root/features/users/services/auth.service';
 import { NotAuthorizedError } from '@root/globals/helpers/error-handlers';
 
 export const protectRoute = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -23,7 +23,7 @@ export const protectRoute = async (req: Request, res: Response, next: NextFuncti
 };
 
 export const checkAuthentication = (req: Request, _res: Response, next: NextFunction): void => {
-  if (!req.user) {
+  if (!(req.user as IUser).token) {
     throw new NotAuthorizedError('Authentication is required to access this route.');
   }
   next();

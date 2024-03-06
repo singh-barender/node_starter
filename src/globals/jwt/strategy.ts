@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { config } from '@root/config';
-import { findById } from '@root/features/auth/services/auth.service';
+import { findById } from '@root/features/users/services/auth.service';
 import { Strategy as JwtStrategy, ExtractJwt, VerifiedCallback } from 'passport-jwt';
 
 const jwtOptions = {

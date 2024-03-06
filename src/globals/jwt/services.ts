@@ -2,7 +2,7 @@ import { IUser } from '@root/types/user.types';
 import { randomBytes, createHash } from 'crypto';
 import { compare, genSalt, hash } from 'bcryptjs';
 import { Secret, SignOptions, sign } from 'jsonwebtoken';
-import { findAndUpdateById, findOneByField } from '@root/features/auth/services/auth.service';
+import { findAndUpdateById, findOneByField } from '@root/features/users/services/auth.service';
 
 export const generateActivationToken = async (userId: string): Promise<string> => {
   const randomBytesBuffer: Buffer = randomBytes(20);

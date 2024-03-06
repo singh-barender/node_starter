@@ -5,7 +5,7 @@ import { sendEmail } from '@root/globals/email';
 import { NotFoundError } from '@root/globals/helpers/error-handlers';
 import { generateActivationToken } from '@root/globals/jwt/services';
 import { resetPasswordTemplate } from '@root/globals/templates/resetPassword';
-import { findUserByEmailOrUsername } from '@root/features/auth/services/auth.service';
+import { findUserByEmailOrUsername } from '@root/features/users/services/auth.service';
 
 const forgotPassword = async (req: Request, res: Response) => {
   const existingUser = await findUserByEmailOrUsername(req.body.email);
