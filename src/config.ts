@@ -1,0 +1,50 @@
+import dotenv from 'dotenv';
+import bunyan from 'bunyan';
+import { Config } from '@root/types/config.types';
+
+dotenv.config({});
+
+function getConfig(): Config {
+  const PORT: number = parseInt(process.env.PORT || '5000', 10);
+  const NODE_ENV: string = process.env.NODE_ENV || '';
+  const BASE_PATH: string = process.env.BASE_PATH || '';
+  const DATABASE_URL: string = process.env.DATABASE_URL || '';
+  const JWT_TOKEN: string = process.env.JWT_TOKEN || '';
+  const SECRET_KEY_ONE: string = process.env.SECRET_KEY_ONE || '';
+  const SECRET_KEY_TWO: string = process.env.SECRET_KEY_TWO || '';
+  const CLIENT_URL: string = process.env.CLIENT_URL || '';
+  const SENDGRID_API_KEY: string = process.env.SENDGRID_API_KEY || '';
+  const SENDER_EMAIL: string = process.env.SENDER_EMAIL || '';
+  const SENDER_EMAIL_PASSWORD: string = process.env.SENDER_EMAIL_PASSWORD || '';
+
+  return {
+    PORT,
+    NODE_ENV,
+    BASE_PATH,
+    DATABASE_URL,
+    JWT_TOKEN,
+    SECRET_KEY_ONE,
+    SECRET_KEY_TWO,
+    CLIENT_URL,
+    SENDGRID_API_KEY,
+    SENDER_EMAIL,
+    SENDER_EMAIL_PASSWORD
+  };
+}
+
+function validateConfig(config: Config): void {
+  for (const [key, value] of Object.entries(config)) {
+    if (value === undefined) {
+      throw new Error(`Configuration ${key} is undefined.`);
+    }
+  }
+}
+
+const config: Config = getConfig();
+validateConfig(config);
+
+export function createLogger(name: string): bunyan {
+  return bunyan.createLogger({ name, level: 'debug' });
+}
+
+export { config, validateConfig };
