@@ -9,7 +9,8 @@ function getConfig(): Config {
   const NODE_ENV: string = process.env.NODE_ENV || '';
   const BASE_PATH: string = process.env.BASE_PATH || '';
   const DATABASE_URL: string = process.env.DATABASE_URL || '';
-  const JWT_TOKEN: string = process.env.JWT_TOKEN || '';
+  const JWT_SECRET: string = process.env.JWT_SECRET || '';
+  const REFRESH_JWT_SECRET: string = process.env.REFRESH_JWT_SECRET || '';
   const SECRET_KEY_ONE: string = process.env.SECRET_KEY_ONE || '';
   const SECRET_KEY_TWO: string = process.env.SECRET_KEY_TWO || '';
   const CLIENT_URL: string = process.env.CLIENT_URL || '';
@@ -22,7 +23,8 @@ function getConfig(): Config {
     NODE_ENV,
     BASE_PATH,
     DATABASE_URL,
-    JWT_TOKEN,
+    JWT_SECRET,
+    REFRESH_JWT_SECRET,
     SECRET_KEY_ONE,
     SECRET_KEY_TWO,
     CLIENT_URL,

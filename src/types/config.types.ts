@@ -3,7 +3,8 @@ export type Config = {
   NODE_ENV: string;
   DATABASE_URL: string;
   BASE_PATH: string;
-  JWT_TOKEN: string;
+  JWT_SECRET: string;
+  REFRESH_JWT_SECRET: string;
   SECRET_KEY_ONE: string;
   SECRET_KEY_TWO: string;
   CLIENT_URL: string;

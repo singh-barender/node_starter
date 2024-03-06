@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
 import { AnySchema, ValidationError } from 'joi';
+import { Request, Response, NextFunction } from 'express';
 import { BadRequestError } from '@root/globals/helpers/error-handlers';
 
 export const joiValidator = (schema: AnySchema) => {

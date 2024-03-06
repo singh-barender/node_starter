@@ -1,7 +1,7 @@
 import { IUser } from '@root/types/user.types';
 import { randomBytes, createHash } from 'crypto';
 import { compare, genSalt, hash } from 'bcryptjs';
-import jwt, { Secret, SignOptions } from 'jsonwebtoken';
+import { Secret, SignOptions, sign } from 'jsonwebtoken';
 import UserModel from '@root/features/users/models/user.model';
 
 export const generateActivationToken = async (userId: string): Promise<string> => {
@@ -29,15 +29,16 @@ export const comparePassword = async (password: string, hashedPassword: string):
   return await compare(password, hashedPassword);
 };
 
-export const signJWT = (payload: { _id: string }, secretKeyOrPrivateKey: string): string => {
+export const signJWT = (payload: { _id: string }, secretKeyOrPrivateKey: string, signingOptions?: SignOptions): string => {
   const defaultSigningOptions: SignOptions = {
     algorithm: 'HS256',
     expiresIn: '24h', // expiration time
     issuer: 'node_ts', // issuer
-    audience: 'node_ts' // audience
+    audience: signingOptions?.audience // audience
   };
   const options: SignOptions = {
-    ...defaultSigningOptions
+    ...defaultSigningOptions,
+    ...signingOptions
   };
-  return jwt.sign(payload, secretKeyOrPrivateKey as Secret, options);
+  return sign(payload, secretKeyOrPrivateKey as Secret, options);
 };

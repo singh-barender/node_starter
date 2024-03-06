@@ -5,7 +5,7 @@ import { Strategy as JwtStrategy, ExtractJwt, VerifiedCallback } from 'passport-
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: config.JWT_TOKEN
+  secretOrKey: config.JWT_SECRET
 };
 
 const passportJwt = passport.use(
