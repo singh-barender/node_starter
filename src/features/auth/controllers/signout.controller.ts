@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 import { findById } from '@root/features/users/services/auth.service';
 import { NotFoundError } from '@root/config/errors/error-handler';
 
-const signout = async (req: Request, res: Response) => {
+const signout = async (req: Request, res: Response): Promise<void> => {
   req.session = null;
   const userId = (req.user as IUser)?._id;
   const user = await findById(userId);

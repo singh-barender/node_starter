@@ -17,12 +17,12 @@ import forgotPassword from '@root/features/auth/controllers/forgotPassword.contr
 
 const router = Router();
 
-router.post('/signup', joiValidator(registerSchema), asyncHandler(signup));
 router.post('/signin', joiValidator(loginSchema), asyncHandler(signin));
-router.get('/signout', protectRoute, checkAuthentication, asyncHandler(signout));
-router.post('/account-activation', joiValidator(activateAccountSchema), asyncHandler(accountActivation));
-router.post('/forgot-password', joiValidator(forgotPasswordScehma), asyncHandler(forgotPassword));
-router.post('/reset-password', joiValidator(resetPasswordScehma), asyncHandler(resetPassword));
+router.post('/signup', joiValidator(registerSchema), asyncHandler(signup));
 router.get('/me', protectRoute, checkAuthentication, asyncHandler(currentUser));
+router.get('/signout', protectRoute, checkAuthentication, asyncHandler(signout));
+router.post('/reset-password', joiValidator(resetPasswordScehma), asyncHandler(resetPassword));
+router.post('/forgot-password', joiValidator(forgotPasswordScehma), asyncHandler(forgotPassword));
+router.post('/account-activation', joiValidator(activateAccountSchema), asyncHandler(accountActivation));
 
 export const authRoutes = router;

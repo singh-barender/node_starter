@@ -35,7 +35,7 @@ export const comparePassword = async (password: string, hashedPassword: string):
   return await compare(password, hashedPassword);
 };
 
-export const signJWT = (payload: { _id: string }, secretKeyOrPrivateKey: string, signingOptions?: SignOptions): string => {
+export const signJWT = (payload: { _id: string; role: string }, secretKeyOrPrivateKey: string, signingOptions?: SignOptions): string => {
   const defaultSigningOptions: SignOptions = {
     algorithm: 'HS256',
     expiresIn: '24h', // expiration time

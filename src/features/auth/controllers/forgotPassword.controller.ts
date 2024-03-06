@@ -7,7 +7,7 @@ import { generateActivationToken } from '@root/globals/jwt/services';
 import { resetPasswordTemplate } from '@root/globals/templates/resetPassword';
 import { findUserByEmailOrUsername } from '@root/features/users/services/auth.service';
 
-const forgotPassword = async (req: Request, res: Response) => {
+const forgotPassword = async (req: Request, res: Response): Promise<void> => {
   const existingUser = await findUserByEmailOrUsername(req.body.email);
   if (!existingUser) throw new NotFoundError('User with this email does not exist.');
   // Generate reset password token

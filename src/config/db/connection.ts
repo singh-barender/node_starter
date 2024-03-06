@@ -2,7 +2,7 @@ import Logger from 'bunyan';
 import mongoose from 'mongoose';
 import { config, createLogger } from '@root/config/env/config';
 
-const log: Logger = createLogger('setupDatabase');
+const log: Logger = createLogger('database-connection');
 
 export default () => {
   return new Promise<void>((resolve, reject) => {

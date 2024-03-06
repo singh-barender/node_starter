@@ -29,8 +29,8 @@ function setupSecurityMiddleware(app: Application) {
   );
   app.use(
     rateLimit({
-      windowMs: 10 * 60 * 1000, // 10 mins
-      max: 500
+      windowMs: 60 * 1000, // 1 min
+      max: 100
     })
   );
 }
