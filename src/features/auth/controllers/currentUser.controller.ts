@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { IUser } from '@root/types/user.types';
 import { StatusCodes } from 'http-status-codes';
-import { sanitizeAndPrepareUser } from '@root/globals/helpers/helpers';
-import { NotAuthorizedError } from '@root/globals/helpers/error-handlers';
+import { sanitizeAndPrepareUser } from '@root/globals/helpers';
+import { NotAuthorizedError } from '@root/config/errors/error-handler';
 
 const currentUser = async (req: Request, res: Response): Promise<Response> => {
   const user: IUser | undefined = req.user as IUser | undefined;

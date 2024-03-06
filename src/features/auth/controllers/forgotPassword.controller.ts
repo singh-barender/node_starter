@@ -1,8 +1,8 @@
-import { config } from '@root/config';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { sendEmail } from '@root/globals/email';
-import { NotFoundError } from '@root/globals/helpers/error-handlers';
+import { config } from '@root/config/env/config';
+import { NotFoundError } from '@root/config/errors/error-handler';
 import { generateActivationToken } from '@root/globals/jwt/services';
 import { resetPasswordTemplate } from '@root/globals/templates/resetPassword';
 import { findUserByEmailOrUsername } from '@root/features/users/services/auth.service';

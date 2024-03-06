@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, NextFunction, Response } from 'express';
 import { IRole } from '@root/globals/constants/roles';
-import { NotAuthorizedError } from '@root/globals/helpers/error-handlers';
+import { NotAuthorizedError } from '@root/config/errors/error-handler';
 
 interface CustomRequest extends Request {
   user: any;

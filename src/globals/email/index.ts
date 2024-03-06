@@ -1,9 +1,9 @@
 import Logger from 'bunyan';
 import nodemailer from 'nodemailer';
 import sendGridMail, { MailDataRequired } from '@sendgrid/mail';
-import { config, createLogger } from '@root/config';
 import { IMailOptions } from '@root/types/email.types';
-import { BadRequestError } from '@root/globals/helpers/error-handlers';
+import { config, createLogger } from '@root/config/env/config';
+import { BadRequestError } from '@root/config/errors/error-handler';
 
 const log: Logger = createLogger('mailOptions');
 sendGridMail.setApiKey(config.SENDGRID_API_KEY!);

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { verifyActivationToken } from '@root/globals/jwt/services';
-import { BadRequestError } from '@root/globals/helpers/error-handlers';
+import { BadRequestError } from '@root/config/errors/error-handler';
 
 const accountActivation = async (req: Request, res: Response): Promise<Response> => {
   const isValidToken: boolean = await verifyActivationToken(req.body.token);

@@ -1,10 +1,10 @@
-import { config } from '@root/config';
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { config } from '@root/config/env/config';
 import { tokenTypes } from '@root/globals/constants/tokens';
 import { comparePassword, signJWT } from '@root/globals/jwt/services';
 import { findUserByEmailOrUsername } from '@root/features/users/services/auth.service';
-import { NotAuthorizedError, NotFoundError } from '@root/globals/helpers/error-handlers';
+import { NotAuthorizedError, NotFoundError } from '@root/config/errors/error-handler';
 
 const signin = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;

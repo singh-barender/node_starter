@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { asyncHandler } from '@root/globals/helpers/async-handler';
+import { asyncHandler } from '@root/globals/middlewares/async-handler';
 import { loginSchema } from '@root/features/auth/schemes/login.schema';
 import { registerSchema } from '@root/features/auth/schemes/register.schema';
 import { joiValidator } from '@root/globals/middlewares/validator.middleware';

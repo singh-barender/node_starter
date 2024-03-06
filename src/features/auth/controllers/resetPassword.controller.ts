@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { BadRequestError } from '@root/globals/helpers/error-handlers';
+import { BadRequestError } from '@root/config/errors/error-handler';
 import { findAndUpdateById } from '@root/features/users/services/auth.service';
 import { generateHashPassword, verifyResetPasswordToken } from '@root/globals/jwt/services';
 

@@ -1,9 +1,9 @@
-import { config } from '@root/config';
 import { IUser } from '@root/types/user.types';
+import { config } from '@root/config/env/config';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { findById } from '@root/features/users/services/auth.service';
-import { NotAuthorizedError } from '@root/globals/helpers/error-handlers';
+import { NotAuthorizedError } from '@root/config/errors/error-handler';
 
 export const protectRoute = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   let token;

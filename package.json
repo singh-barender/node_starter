@@ -36,6 +36,7 @@
     "nodemailer": "^6.9.11",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "swagger-stats": "^0.99.7",
     "typescript": "^5.3.3",
     "typescript-transform-paths": "^3.4.7"
   },
@@ -53,6 +54,7 @@
     "@types/nodemailer": "^6.4.14",
     "@types/passport": "^1.0.16",
     "@types/passport-jwt": "^4.0.1",
+    "@types/swagger-stats": "^0.95.11",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "eslint": "^8.57.0",

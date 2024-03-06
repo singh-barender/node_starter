@@ -1,5 +1,5 @@
-import { StatusCodes } from 'http-status-codes';
 import { IError } from '@root/types/error.types';
+import { StatusCodes } from 'http-status-codes';
 
 export abstract class CustomError extends Error {
   abstract statusCode: number;
