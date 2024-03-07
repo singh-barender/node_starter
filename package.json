@@ -11,7 +11,7 @@
     "prettier:check": "prettier --check 'src/**/*.{ts,json}'",
     "prettier:fix": "prettier --write 'src/**/*.{ts,json}'",
     "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
-    "seed:admin": "ts-node -r tsconfig-paths/register src/seeds/seed-admin.ts"
+    "seed:admin": "ts-node -r tsconfig-paths/register src/seeds/seedAdmin.ts"
   },
   "keywords": [],
   "author": "",

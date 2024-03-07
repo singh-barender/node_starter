@@ -1,4 +1,4 @@
-import { IUser } from '@root/types/user.types';
+import { IRegisterUser, IUser } from '@root/types/user.types';
 import UserModel from '@root/features/users/models/user.model';
 
 export const findUserByEmailOrUsername = async (emailOrUsername: string): Promise<IUser | null> => {
@@ -17,14 +17,16 @@ export const findById = async (userId: string): Promise<IUser | null> => {
 
 // eslint-disable-next-line
 export const findOneByField = async (args: any): Promise<IUser | null> => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return await UserModel.findOne(args);
 };
 
 // eslint-disable-next-line
 export const findAndUpdateById = async (userId: string, updateData: any): Promise<IUser | null> => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return await UserModel.findByIdAndUpdate(userId, updateData, { new: true });
 };
 
-export async function createNewUser(userData: IUser) {
+export async function createNewUser(userData: IRegisterUser) {
   return await UserModel.create(userData);
 }

@@ -3,9 +3,10 @@ import Logger from 'bunyan';
 import setupRoutesMiddleware from '@root/routes';
 import connectToRedis from '@root/config/db/redis';
 import connectToMongoDB from '@root/config/db/mongodb';
-import setupSecurityMiddleware from '@root/config/server/security-layer';
-import setupStandardMiddleware from '@root/config/server/standard-layer';
-import setupErrorHandlingMiddleware from '@root/config/server/global-errors';
+import apiMonitoring from '@root/config/server/apiMonitoring';
+import setupSecurityMiddleware from '@root/config/server/securityLayer';
+import setupStandardMiddleware from '@root/config/server/standardLayer';
+import setupErrorHandlingMiddleware from '@root/config/server/errorHandler';
 import express, { Application } from 'express';
 import { config, createLogger } from '@root/config/env/config';
 
@@ -14,15 +15,15 @@ import 'express-async-errors';
 const log: Logger = createLogger('server-setup');
 const app: Application = express();
 
-async function setupExpressApp(): Promise<Application> {
+function setupExpressApp(): void {
+  apiMonitoring(app);
   setupStandardMiddleware(app);
   setupSecurityMiddleware(app);
   setupRoutesMiddleware(app);
   setupErrorHandlingMiddleware(app);
-  return app;
 }
 
-async function startServer(app: Application): Promise<http.Server> {
+function startServer(app: Application): http.Server {
   const server = http.createServer(app);
   server.listen(config.PORT, () => {
     log.info(`Server running on port ${config.PORT}`);
@@ -30,7 +31,7 @@ async function startServer(app: Application): Promise<http.Server> {
   return server;
 }
 
-async function gracefulShutdown(server: http.Server): Promise<void> {
+function gracefulShutdown(server: http.Server): void {
   server.close(() => {
     log.info('Server closed');
     process.exit(0);
@@ -39,22 +40,23 @@ async function gracefulShutdown(server: http.Server): Promise<void> {
 
 async function main() {
   try {
-    const expressApp = await setupExpressApp();
-    const server = await startServer(expressApp);
+    setupExpressApp();
+    const server = startServer(app);
     await Promise.all([connectToMongoDB(), connectToRedis()]);
     process.on('SIGINT', () => {
       log.info('Received SIGINT. Shutting down server gracefully.');
-      gracefulShutdown(server);
+      void gracefulShutdown(server);
     });
     process.on('SIGTERM', () => {
       log.info('Received SIGTERM. Shutting down server gracefully.');
-      gracefulShutdown(server);
+      void gracefulShutdown(server);
     });
   } catch (error) {
     log.error('Failed to start server:', error);
     process.exit(1);
   }
 }
-main();
+
+void main();
 
 export default app;

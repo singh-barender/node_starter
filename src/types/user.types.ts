@@ -1,6 +1,7 @@
 import { Document } from 'mongoose';
 
 export interface IUser extends Document {
+  _id?: string;
   username: string;
   firstName: string;
   lastName?: string;
@@ -18,7 +19,7 @@ export interface IUser extends Document {
 }
 
 export interface IUserSubset {
-  _id: string;
+  _id?: string;
   role: string;
   username: string;
   firstName: string;
@@ -32,6 +33,14 @@ export interface IUserSubset {
   expires: number;
   isActive: boolean;
   isLogged: boolean;
+}
+
+export interface IRegisterUser {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
 }
 
 export type UserSubset = Pick<IUser, '_id' | 'username' | 'firstName' | 'lastName' | 'role' | 'email'>;

@@ -1,8 +1,8 @@
 import { AnySchema, ValidationError } from 'joi';
 import { Request, Response, NextFunction } from 'express';
-import { BadRequestError } from '@root/config/errors/error-handler';
+import { BadRequestError } from '@root/config/errors/globalErrors';
 
-export const joiValidator = (schema: AnySchema) => {
+export const schemesValidator = (schema: AnySchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const { error } = schema.validate(req.body);

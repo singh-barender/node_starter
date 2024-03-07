@@ -8,8 +8,7 @@ const jwtOptions = {
   secretOrKey: config.JWT_SECRET
 };
 
-// eslint-disable-next-line
-const authenticateUser = async (payload: any, done: VerifiedCallback) => {
+const authenticateUser = async (payload: { _id: string }, done: VerifiedCallback) => {
   try {
     const user = await findById(payload._id);
     if (!user) return done(null, false);

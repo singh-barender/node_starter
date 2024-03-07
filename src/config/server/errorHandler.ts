@@ -1,6 +1,6 @@
 import HTTP_STATUS from 'http-status-codes';
 import { createLogger } from '@root/config/env/config';
-import { CustomError } from '@root/config/errors/error-handler';
+import { CustomError } from '@root/config/errors/globalErrors';
 import { Application, Response, Request, NextFunction } from 'express';
 
 const log = createLogger('server');

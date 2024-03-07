@@ -1,16 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IRole } from '@root/globals/constants/roles';
 import { Request, NextFunction, Response } from 'express';
-import { NotAuthorizedError } from '@root/config/errors/error-handler';
+import { NotAuthorizedError } from '@root/config/errors/globalErrors';
 
 interface CustomRequest extends Request {
-  user: any;
+  user: {
+    role: IRole;
+  };
 }
 
-const roleAuthorize = (...roles: IRole[]) => {
+const roleAuthorizer = (...roles: IRole[]) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const customReq = req as CustomRequest;
-    const userRole = customReq.user.role; // Example: 'admin', 'user', or null
+    const userRole = customReq.user.role;
     if (userRole && roles.includes(userRole)) {
       next();
     } else {
@@ -19,4 +20,4 @@ const roleAuthorize = (...roles: IRole[]) => {
   };
 };
 
-export default roleAuthorize;
+export default roleAuthorizer;

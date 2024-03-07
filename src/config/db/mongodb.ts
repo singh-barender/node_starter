@@ -29,15 +29,17 @@ function handleDisconnect(): void {
   log.info('Mongoose disconnected from database.');
 }
 
-async function closeMongoConnection(): Promise<void> {
-  try {
-    await dbConnection.connection.close();
-    log.info('MongoDB connection closed due to application shutdown.');
-    process.exit(0);
-  } catch (error) {
-    log.error('Error closing MongoDB connection:', error);
-    process.exit(1);
-  }
+function closeMongoConnection(): void {
+  dbConnection.connection
+    .close()
+    .then(() => {
+      log.info('MongoDB connection closed due to application shutdown.');
+      process.exit(0);
+    })
+    .catch((error) => {
+      log.error('Error closing MongoDB connection:', error);
+      process.exit(1);
+    });
 }
 
 export default connectToMongoDB;

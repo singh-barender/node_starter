@@ -48,6 +48,6 @@ async function seedAdmin(): Promise<void> {
   }
 }
 
-seedAdmin().then(() => {
+void seedAdmin().then(() => {
   log.info('Seed operation completed.');
 });

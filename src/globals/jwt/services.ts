@@ -15,14 +15,14 @@ const generateActivationToken = async (userId: string): Promise<string> => {
 const verifyActivationToken = async (token: string): Promise<boolean> => {
   const user: IUser | null = await findOneByField({ token });
   if (!user || user.expires < Date.now()) return false;
-  await findAndUpdateById(user._id, { $set: { token: null, expires: null, isActive: true } });
+  await findAndUpdateById(user._id as string, { $set: { token: null, expires: null, isActive: true } });
   return true;
 };
 
 const verifyResetPasswordToken = async (token: string): Promise<{ _id: string; success: boolean } | boolean> => {
   const user: IUser | null = await findOneByField({ token });
   if (!user || user.expires < Date.now()) return false;
-  return { _id: user?._id, success: true };
+  return { _id: user?._id as string, success: true };
 };
 
 const generateHashPassword = async (password: string): Promise<string> => {
