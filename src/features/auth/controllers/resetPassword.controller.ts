@@ -12,7 +12,7 @@ const resetPassword = async (req: Request, res: Response): Promise<void> => {
   const { _id: userId } = isValidToken as { _id: string };
   const newPassword = await generateHashPassword(req.body.password);
   // Update user with new password and remove token
-  await findAndUpdateById(userId, { token: null, expires: null, isActive: true, password: newPassword });
+  await findAndUpdateById(userId, { $set: { token: null, expires: null, isActive: true, password: newPassword } });
   res.status(StatusCodes.OK).json({ message: 'Account password updated.' });
 };
 

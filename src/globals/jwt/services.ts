@@ -8,14 +8,14 @@ const generateActivationToken = async (userId: string): Promise<string> => {
   const randomBytesBuffer: Buffer = randomBytes(20);
   const randomCharacters: string = randomBytesBuffer.toString('hex');
   const confirmToken: string = createHash('sha256').update(randomCharacters).digest('hex');
-  await findAndUpdateById(userId, { token: confirmToken, expires: Date.now() * 60 * 60 * 1000 });
+  await findAndUpdateById(userId, { $set: { token: confirmToken, expires: Date.now() * 60 * 60 * 1000 } });
   return confirmToken;
 };
 
 const verifyActivationToken = async (token: string): Promise<boolean> => {
   const user: IUser | null = await findOneByField({ token });
   if (!user || user.expires < Date.now()) return false;
-  await findAndUpdateById(user._id, { token: null, expires: null, isActive: true });
+  await findAndUpdateById(user._id, { $set: { token: null, expires: null, isActive: true } });
   return true;
 };
 

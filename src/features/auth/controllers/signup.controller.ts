@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { sendEmail } from '@root/globals/email';
 import { StatusCodes } from 'http-status-codes';
 import { config } from '@root/config/env/config';
+import { saveUserToCache } from '@root/globals/redis/user.cache';
 import { BadRequestError } from '@root/config/errors/error-handler';
 import { accountActivationTemplate } from '@root/globals/templates/accountActivation';
 import { generateActivationToken, generateHashPassword } from '@root/globals/jwt/services';
@@ -15,6 +16,7 @@ const signup = async (req: Request, res: Response): Promise<void> => {
   const newPayload = { ...req.body, password: hashedPassword };
   // Create new user record
   const newUser = await createNewUser(newPayload);
+  await saveUserToCache(newUser);
   // Generate activation token
   const activationToken = await generateActivationToken(newUser._id);
   const activationLink = `${config.CLIENT_URL}/account-activation?token=${activationToken}`;

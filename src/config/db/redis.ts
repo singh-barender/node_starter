@@ -1,20 +1,35 @@
 import Logger from 'bunyan';
-import { RedisClientType, createClient } from 'redis';
+import { createClient, RedisClientType } from 'redis';
 import { config, createLogger } from '@root/config/env/config';
 
 const log: Logger = createLogger('redis-connection');
+
+type RedisClient = ReturnType<typeof createClient>;
 let pubClient: RedisClientType;
 let subClient: RedisClientType;
+let clientLogger: Logger;
 
-async function connectToRedis(): Promise<void> {
+async function connectToRedis(cacheName?: string): Promise<{ pubClient: RedisClientType; clientLogger: Logger }> {
   try {
-    pubClient = createClient({ url: config.REDIS_HOST }) as RedisClientType;
+    const client: RedisClient = createClient({ url: config.REDIS_HOST });
+    if (cacheName) {
+      clientLogger = createLogger(cacheName);
+    }
+
+    client.on('error', (error: unknown) => {
+      clientLogger.error(error);
+    });
+
+    pubClient = client as RedisClientType;
     subClient = pubClient.duplicate() as RedisClientType;
+
     await Promise.all([pubClient.connect(), subClient.connect()]);
     log.info('Successfully connected to Redis.');
-    // Listen for shutdown signals
+
     process.on('SIGINT', gracefulShutdown);
     process.on('SIGTERM', gracefulShutdown);
+
+    return { pubClient, clientLogger };
   } catch (error) {
     log.error('Failed to connect to Redis:', error);
     process.exit(1);
