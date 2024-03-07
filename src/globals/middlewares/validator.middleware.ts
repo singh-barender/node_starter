@@ -6,12 +6,8 @@ export const joiValidator = (schema: AnySchema) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const { error } = schema.validate(req.body);
-      if (!error) {
-        next();
-      } else {
-        const message = getErrorMessage(error);
-        next(new BadRequestError(message));
-      }
+      if (error) throw new BadRequestError(getErrorMessage(error));
+      next();
     } catch (error) {
       next(error);
     }

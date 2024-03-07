@@ -8,16 +8,17 @@ const jwtOptions = {
   secretOrKey: config.JWT_SECRET
 };
 
-const passportJwt = passport.use(
-  new JwtStrategy(jwtOptions, async (payload, done: VerifiedCallback) => {
-    try {
-      const user = await findById(payload._id);
-      if (!user) return done(null, false);
-      return done(null, user);
-    } catch (error) {
-      return done(error, false);
-    }
-  })
-);
+// eslint-disable-next-line
+const authenticateUser = async (payload: any, done: VerifiedCallback) => {
+  try {
+    const user = await findById(payload._id);
+    if (!user) return done(null, false);
+    return done(null, user);
+  } catch (error) {
+    return done(error, false);
+  }
+};
+
+const passportJwt = passport.use(new JwtStrategy(jwtOptions, authenticateUser));
 
 export default passportJwt;

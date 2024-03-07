@@ -1,35 +1,12 @@
 import Logger from 'bunyan';
 import nodemailer from 'nodemailer';
-import sendGridMail, { MailDataRequired } from '@sendgrid/mail';
 import { IMailOptions } from '@root/types/email.types';
 import { config, createLogger } from '@root/config/env/config';
+import sendGridMail, { MailDataRequired } from '@sendgrid/mail';
 import { BadRequestError } from '@root/config/errors/error-handler';
 
-const log: Logger = createLogger('mailOptions');
 sendGridMail.setApiKey(config.SENDGRID_API_KEY!);
-
-async function sendEmail(receiverEmail: string, subject: string, body: string): Promise<void> {
-  try {
-    const mailOptions: IMailOptions = generateMailOptions(receiverEmail, subject, body);
-    if (config.NODE_ENV === 'development') {
-      await sendWithNodemailer(mailOptions);
-    } else {
-      await sendWithSendGrid(mailOptions);
-    }
-  } catch (error) {
-    log.error('Error sending email', error);
-    throw new BadRequestError('Error sending email');
-  }
-}
-
-function generateMailOptions(receiverEmail: string, subject: string, body: string): IMailOptions {
-  return {
-    from: `Node_BP <${config.SENDER_EMAIL!}>`,
-    to: receiverEmail,
-    subject,
-    html: body
-  };
-}
+const log: Logger = createLogger('mailOptions');
 
 async function sendWithNodemailer(mailOptions: IMailOptions): Promise<void> {
   const transporter = nodemailer.createTransport({
@@ -46,9 +23,36 @@ async function sendWithNodemailer(mailOptions: IMailOptions): Promise<void> {
   log.info('Development: email sent successfully.');
 }
 
+function generateMailOptions(receiverEmail: string, subject: string, body: string): IMailOptions {
+  return {
+    from: `Node_ts <${config.SENDER_EMAIL!}>`,
+    to: receiverEmail,
+    subject,
+    html: body
+  };
+}
+
+function handleSendEmailError(error: unknown): void {
+  log.error('Error sending email', error);
+  throw new BadRequestError('Error sending email');
+}
+
 async function sendWithSendGrid(mailOptions: MailDataRequired): Promise<void> {
   await sendGridMail.send(mailOptions);
   log.info('Production: email sent successfully.');
+}
+
+async function sendEmail(receiverEmail: string, subject: string, body: string): Promise<void> {
+  try {
+    const mailOptions: IMailOptions = generateMailOptions(receiverEmail, subject, body);
+    if (config.NODE_ENV === 'development') {
+      await sendWithNodemailer(mailOptions);
+    } else {
+      await sendWithSendGrid(mailOptions);
+    }
+  } catch (error) {
+    handleSendEmailError(error);
+  }
 }
 
 export { sendEmail };

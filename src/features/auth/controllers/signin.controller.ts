@@ -15,11 +15,11 @@ const signin = async (req: Request, res: Response): Promise<void> => {
   if (!isPasswordValid) throw new NotAuthorizedError('Invalid credentials');
   if (!user.isActive) throw new NotAuthorizedError('Please activate your account to login');
   // Generate JWT token
-  const accessToken = signJWT({ _id: user._id, role: user.role }, config.JWT_SECRET, {
+  const accessToken = signJWT({ _id: user._id }, config.JWT_SECRET, {
     expiresIn: '6h',
     audience: tokenTypes.ACCESS_TOKEN
   });
-  const refreshToken = signJWT({ _id: user._id, role: user.role }, config.REFRESH_JWT_SECRET, {
+  const refreshToken = signJWT({ _id: user._id }, config.REFRESH_JWT_SECRET, {
     expiresIn: '7d',
     audience: tokenTypes.REFRESH_TOKEN
   });

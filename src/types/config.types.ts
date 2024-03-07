@@ -2,6 +2,7 @@ export type Config = {
   PORT: number;
   NODE_ENV: string;
   DATABASE_URL: string;
+  REDIS_HOST: string;
   BASE_PATH: string;
   JWT_SECRET: string;
   REFRESH_JWT_SECRET: string;

@@ -6,20 +6,17 @@ import { findById } from '@root/features/users/services/auth.service';
 import { NotAuthorizedError } from '@root/config/errors/error-handler';
 
 export const protectRoute = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  let token;
   try {
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-      token = req.headers.authorization.split(' ').pop();
-    }
-    if (!token) return next(new NotAuthorizedError('Not authorized to access this route'));
+    const token = req.headers.authorization?.split(' ').pop();
+    if (!token) throw new NotAuthorizedError('Not authorized to access this route');
     const decoded: JwtPayload = verify(token, config.JWT_SECRET) as JwtPayload;
-    const user: IUser | null = await findById(decoded._id);
+    const user = await findById(decoded._id);
     if (!user) throw new NotAuthorizedError('User not found');
     req.user = user;
+    next();
   } catch (error) {
-    throw new NotAuthorizedError('Token is invalid. Please login again.');
+    next(new NotAuthorizedError('Invalid request without token.'));
   }
-  next();
 };
 
 export const checkAuthentication = (req: Request, _res: Response, next: NextFunction): void => {

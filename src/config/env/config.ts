@@ -9,6 +9,7 @@ function getConfig(): Config {
   const NODE_ENV: string = process.env.NODE_ENV || '';
   const BASE_PATH: string = process.env.BASE_PATH || '';
   const DATABASE_URL: string = process.env.DATABASE_URL || '';
+  const REDIS_HOST: string = process.env.REDIS_HOST || '';
   const JWT_SECRET: string = process.env.JWT_SECRET || '';
   const REFRESH_JWT_SECRET: string = process.env.REFRESH_JWT_SECRET || '';
   const SECRET_KEY_ONE: string = process.env.SECRET_KEY_ONE || '';
@@ -23,6 +24,7 @@ function getConfig(): Config {
     NODE_ENV,
     BASE_PATH,
     DATABASE_URL,
+    REDIS_HOST,
     JWT_SECRET,
     REFRESH_JWT_SECRET,
     SECRET_KEY_ONE,
