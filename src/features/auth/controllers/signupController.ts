@@ -7,7 +7,7 @@ import { saveUserToCache } from '@root/globals/redis/userCache';
 import { BadRequestError } from '@root/config/errors/globalErrors';
 import { accountActivationTemplate } from '@root/globals/templates/accountActivation';
 import { generateActivationToken, generateHashPassword } from '@root/globals/jwt/services';
-import { createNewUser, findUserByEmailOrUsernameSeparately } from '@root/features/users/services/auth.service';
+import { createNewUser, findUserByEmailOrUsernameSeparately } from '@root/features/users/services/authService';
 
 const signup = async (req: Request<unknown, unknown, IRegisterUser, unknown>, res: Response): Promise<void> => {
   const { email, username, password, ...otherProps } = req.body;

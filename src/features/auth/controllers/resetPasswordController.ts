@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { BadRequestError } from '@root/config/errors/globalErrors';
-import { findAndUpdateById } from '@root/features/users/services/auth.service';
+import { findAndUpdateById } from '@root/features/users/services/authService';
 import { generateHashPassword, verifyResetPasswordToken } from '@root/globals/jwt/services';
 
 const resetPassword = async (req: Request, res: Response): Promise<void> => {

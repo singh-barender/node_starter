@@ -2,7 +2,7 @@ import { IUser } from '@root/types/userTypes';
 import { config } from '@root/config/env/config';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
-import { findById } from '@root/features/users/services/auth.service';
+import { findById } from '@root/features/users/services/authService';
 import { NotAuthorizedError } from '@root/config/errors/globalErrors';
 
 export const protectRoute = (req: Request, res: Response, next: NextFunction) => {
