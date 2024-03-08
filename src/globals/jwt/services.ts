@@ -1,4 +1,4 @@
-import { IUser } from '@root/types/user.types';
+import { IUser } from '@root/types/userTypes';
 import { randomBytes, createHash } from 'crypto';
 import { compare, genSalt, hash } from 'bcryptjs';
 import { Secret, SignOptions, sign } from 'jsonwebtoken';

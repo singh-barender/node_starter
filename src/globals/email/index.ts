@@ -1,6 +1,6 @@
 import Logger from 'bunyan';
 import nodemailer from 'nodemailer';
-import { IMailOptions } from '@root/types/email.types';
+import { IMailOptions } from '@root/types/emailTypes';
 import { config, createLogger } from '@root/config/env/config';
 import sendGridMail, { MailDataRequired } from '@sendgrid/mail';
 import { BadRequestError } from '@root/config/errors/globalErrors';

@@ -1,4 +1,4 @@
-import { IUser } from '@root/types/user.types';
+import { IUser } from '@root/types/userTypes';
 import { config } from '@root/config/env/config';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';

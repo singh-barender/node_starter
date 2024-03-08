@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { IUser } from '@root/types/user.types';
+import { IUser } from '@root/types/userTypes';
 import { StatusCodes } from 'http-status-codes';
 import { sanitizeAndPrepareUser } from '@root/globals/helpers';
-import { getUserFromCache } from '@root/globals/redis/user.cache';
+import { getUserFromCache } from '@root/globals/redis/userCache';
 import { NotAuthorizedError } from '@root/config/errors/globalErrors';
 
 const currentUser = async (req: Request, res: Response): Promise<Response> => {

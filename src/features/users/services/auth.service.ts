@@ -1,4 +1,4 @@
-import { IRegisterUser, IUser } from '@root/types/user.types';
+import { IRegisterUser, IUser } from '@root/types/userTypes';
 import UserModel from '@root/features/users/models/user.model';
 
 export const findUserByEmailOrUsername = async (emailOrUsername: string): Promise<IUser | null> => {

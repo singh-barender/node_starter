@@ -1,7 +1,7 @@
 import Logger from 'bunyan';
 import connectToRedis from '@root/config/db/redis';
 import { RedisClientType } from 'redis';
-import { IUser, IUserSubset } from '@root/types/user.types';
+import { IUser, IUserSubset } from '@root/types/userTypes';
 import { ServerError } from '@root/config/errors/globalErrors';
 
 let pubClient: RedisClientType;

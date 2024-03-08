@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IUser } from '@root/types/user.types';
+import { IUser } from '@root/types/userTypes';
 import { StatusCodes } from 'http-status-codes';
 import { NotFoundError } from '@root/config/errors/globalErrors';
 import { findById } from '@root/features/users/services/auth.service';

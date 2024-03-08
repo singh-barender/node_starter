@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import bunyan from 'bunyan';
-import { Config } from '@root/types/config.types';
+import { Config } from '@root/types/configTypes';
 
 dotenv.config({});
 
