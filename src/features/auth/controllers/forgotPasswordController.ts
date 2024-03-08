@@ -5,7 +5,7 @@ import { config } from '@root/config/env/config';
 import { NotFoundError } from '@root/config/errors/globalErrors';
 import { generateActivationToken } from '@root/globals/jwt/services';
 import { resetPasswordTemplate } from '@root/globals/templates/resetPassword';
-import { findUserByEmailOrUsername } from '@root/features/users/services/auth.service';
+import { findUserByEmailOrUsername } from '@root/features/users/services/authService';
 
 const forgotPassword = async (req: Request, res: Response): Promise<void> => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

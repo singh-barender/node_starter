@@ -68,7 +68,8 @@ To start the application in production mode, run:
 - `prettier:check`: Checks the code formatting.
 - `prettier:fix`: Fixes code formatting issues.
 - `build`: Compiles TypeScript and builds the project.
-- `seed:admin`: Seeds the admin user into the database.
+- `seed:admin:dev`: Seeds the admin user into the database on development.
+- `seed:admin:prod`: Seeds the admin user into the database on production.
 
 ## Contributing
 

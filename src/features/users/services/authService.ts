@@ -1,5 +1,5 @@
 import { IRegisterUser, IUser } from '@root/types/userTypes';
-import UserModel from '@root/features/users/models/user.model';
+import UserModel from '@root/features/users/models/userModel';
 
 export const findUserByEmailOrUsername = async (emailOrUsername: string): Promise<IUser | null> => {
   return await UserModel.findOne({ $or: [{ username: emailOrUsername }, { email: emailOrUsername }] });

@@ -7,7 +7,7 @@ let dbConnection: Mongoose;
 
 async function connectToMongoDB(): Promise<void> {
   try {
-    dbConnection = await mongoose.connect(config.DATABASE_URL);
+    dbConnection = await mongoose.connect(config.MONGO_URL);
     log.info('Successfully connected to MongoDB.');
     // Listen to connection events
     dbConnection.connection.on('error', handleMongoError);

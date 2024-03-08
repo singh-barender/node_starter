@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { IUser } from '@root/types/userTypes';
 import { StatusCodes } from 'http-status-codes';
 import { NotFoundError } from '@root/config/errors/globalErrors';
-import { findById } from '@root/features/users/services/auth.service';
+import { findById } from '@root/features/users/services/authService';
 
 const signout = async (req: Request, res: Response): Promise<void> => {
   req.session = null;

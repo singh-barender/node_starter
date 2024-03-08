@@ -5,7 +5,7 @@ import { config } from '@root/config/env/config';
 import { tokenTypes } from '@root/globals/constants/tokens';
 import { comparePassword, signJWT } from '@root/globals/jwt/services';
 import { NotAuthorizedError, NotFoundError } from '@root/config/errors/globalErrors';
-import { findUserByEmailOrUsername } from '@root/features/users/services/auth.service';
+import { findUserByEmailOrUsername } from '@root/features/users/services/authService';
 
 const signin = async (req: Request, res: Response): Promise<void> => {
   // Check if the user exists and account is active
