@@ -7,7 +7,7 @@ let dbConnection: Mongoose;
 
 async function connectToMongoDB(): Promise<void> {
   try {
-    dbConnection = await mongoose.connect(config.DATABASE_URL);
+    dbConnection = await mongoose.connect(config.MONGO_URL);
     log.info('Successfully connected to MongoDB.');
     // Listen to connection events
     dbConnection.connection.on('error', handleMongoError);
@@ -29,15 +29,17 @@ function handleDisconnect(): void {
   log.info('Mongoose disconnected from database.');
 }
 
-async function closeMongoConnection(): Promise<void> {
-  try {
-    await dbConnection.connection.close();
-    log.info('MongoDB connection closed due to application shutdown.');
-    process.exit(0);
-  } catch (error) {
-    log.error('Error closing MongoDB connection:', error);
-    process.exit(1);
-  }
+function closeMongoConnection(): void {
+  dbConnection.connection
+    .close()
+    .then(() => {
+      log.info('MongoDB connection closed due to application shutdown.');
+      process.exit(0);
+    })
+    .catch((error) => {
+      log.error('Error closing MongoDB connection:', error);
+      process.exit(1);
+    });
 }
 
 export default connectToMongoDB;

@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { config } from '@root/config/env/config';
-import { findById } from '@root/features/users/services/auth.service';
+import { findById } from '@root/features/users/services/authService';
 import { Strategy as JwtStrategy, ExtractJwt, VerifiedCallback } from 'passport-jwt';
 
 const jwtOptions = {
@@ -8,8 +8,7 @@ const jwtOptions = {
   secretOrKey: config.JWT_SECRET
 };
 
-// eslint-disable-next-line
-const authenticateUser = async (payload: any, done: VerifiedCallback) => {
+const authenticateUser = async (payload: { _id: string }, done: VerifiedCallback) => {
   try {
     const user = await findById(payload._id);
     if (!user) return done(null, false);

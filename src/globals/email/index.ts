@@ -1,11 +1,11 @@
 import Logger from 'bunyan';
 import nodemailer from 'nodemailer';
-import { IMailOptions } from '@root/types/email.types';
+import { IMailOptions } from '@root/types/emailTypes';
 import { config, createLogger } from '@root/config/env/config';
 import sendGridMail, { MailDataRequired } from '@sendgrid/mail';
-import { BadRequestError } from '@root/config/errors/error-handler';
+import { BadRequestError } from '@root/config/errors/globalErrors';
 
-sendGridMail.setApiKey(config.SENDGRID_API_KEY!);
+sendGridMail.setApiKey(config.SENDGRID_API_KEY);
 const log: Logger = createLogger('mailOptions');
 
 async function sendWithNodemailer(mailOptions: IMailOptions): Promise<void> {
@@ -14,8 +14,8 @@ async function sendWithNodemailer(mailOptions: IMailOptions): Promise<void> {
     port: 587,
     secure: false,
     auth: {
-      user: config.SENDER_EMAIL!,
-      pass: config.SENDER_EMAIL_PASSWORD!
+      user: config.SENDER_EMAIL,
+      pass: config.SENDER_EMAIL_PASSWORD
     }
   });
 
@@ -25,7 +25,7 @@ async function sendWithNodemailer(mailOptions: IMailOptions): Promise<void> {
 
 function generateMailOptions(receiverEmail: string, subject: string, body: string): IMailOptions {
   return {
-    from: `Node_ts <${config.SENDER_EMAIL!}>`,
+    from: `Node_ts <${config.SENDER_EMAIL}>`,
     to: receiverEmail,
     subject,
     html: body

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import connectToMongoDB from '@root/config/db/mongodb';
-import UserModel from '@root/features/users/models/user.model';
+import UserModel from '@root/features/users/models/userModel';
 import { createLogger } from '@root/config/env/config';
 import { generateHashPassword } from '@root/globals/jwt/services';
 
@@ -48,6 +48,6 @@ async function seedAdmin(): Promise<void> {
   }
 }
 
-seedAdmin().then(() => {
+void seedAdmin().then(() => {
   log.info('Seed operation completed.');
 });

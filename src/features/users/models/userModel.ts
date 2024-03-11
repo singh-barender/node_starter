@@ -1,4 +1,4 @@
-import { IUser } from '@root/types/user.types';
+import { IUser } from '@root/types/userTypes';
 import { model, Model, Schema, Document } from 'mongoose';
 import { enumRoles, roles } from '@root/globals/constants/roles';
 

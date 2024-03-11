@@ -1,8 +1,8 @@
-import { IUser } from '@root/types/user.types';
+import { IUser } from '@root/types/userTypes';
 import { randomBytes, createHash } from 'crypto';
 import { compare, genSalt, hash } from 'bcryptjs';
 import { Secret, SignOptions, sign } from 'jsonwebtoken';
-import { findAndUpdateById, findOneByField } from '@root/features/users/services/auth.service';
+import { findAndUpdateById, findOneByField } from '@root/features/users/services/authService';
 
 const generateActivationToken = async (userId: string): Promise<string> => {
   const randomBytesBuffer: Buffer = randomBytes(20);
@@ -15,14 +15,14 @@ const generateActivationToken = async (userId: string): Promise<string> => {
 const verifyActivationToken = async (token: string): Promise<boolean> => {
   const user: IUser | null = await findOneByField({ token });
   if (!user || user.expires < Date.now()) return false;
-  await findAndUpdateById(user._id, { $set: { token: null, expires: null, isActive: true } });
+  await findAndUpdateById(user._id as string, { $set: { token: null, expires: null, isActive: true } });
   return true;
 };
 
 const verifyResetPasswordToken = async (token: string): Promise<{ _id: string; success: boolean } | boolean> => {
   const user: IUser | null = await findOneByField({ token });
   if (!user || user.expires < Date.now()) return false;
-  return { _id: user?._id, success: true };
+  return { _id: user?._id as string, success: true };
 };
 
 const generateHashPassword = async (password: string): Promise<string> => {

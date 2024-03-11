@@ -1,0 +1,73 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+@featurePath = auth
+
+###
+GET {{baseUrl}}/{{urlPath}}/{{featurePath}}/signout
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+Authorization: Bearer <Your_Access_Token>
+
+###
+GET {{baseUrl}}/{{urlPath}}/{{featurePath}}/me
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+Authorization: Bearer <Your_Access_Token>
+
+###
+POST {{baseUrl}}/{{urlPath}}/{{featurePath}}/signup
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "username": "admin123",
+  "email": "admin@example.com",
+  "firstName": "John",
+  "lastName": "Doe",
+  "password": "Test@123"
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/{{featurePath}}/signin
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+    "email": "gdeep@example.com",
+    "password": "Test@123"
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/{{featurePath}}/forgot-password
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "email": ""
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/{{featurePath}}/reset-password
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "password": "",
+  "token": ""
+}
+
+###
+POST {{baseUrl}}/{{urlPath}}/{{featurePath}}/account-activation
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{
+  "token": ""
+}

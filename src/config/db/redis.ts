@@ -36,9 +36,10 @@ async function connectToRedis(cacheName?: string): Promise<{ pubClient: RedisCli
   }
 }
 
-async function gracefulShutdown(): Promise<void> {
+function gracefulShutdown(): void {
   try {
-    await Promise.all([pubClient.quit(), subClient.quit()]);
+    void pubClient.quit();
+    void subClient.quit();
     log.info('Redis connection closed due to application shutdown.');
     process.exit(0);
   } catch (error) {
