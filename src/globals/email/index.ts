@@ -1,12 +1,13 @@
 import Logger from 'bunyan';
 import nodemailer from 'nodemailer';
-import { IMailOptions } from '@root/types/emailTypes';
-import { config, createLogger } from '@root/config/env/config';
+import bunyanLogger from '@root/config/logger/bunyanLogger';
 import sendGridMail, { MailDataRequired } from '@sendgrid/mail';
+import { config } from '@root/config/env/config';
+import { IMailOptions } from '@root/types/emailTypes';
 import { BadRequestError } from '@root/config/errors/globalErrors';
 
 sendGridMail.setApiKey(config.SENDGRID_API_KEY);
-const log: Logger = createLogger('mailOptions');
+const log: Logger = bunyanLogger('mailOptions');
 
 async function sendWithNodemailer(mailOptions: IMailOptions): Promise<void> {
   const transporter = nodemailer.createTransport({

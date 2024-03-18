@@ -1,8 +1,9 @@
 import Logger from 'bunyan';
+import bunyanLogger from '@root/config/logger/bunyanLogger';
 import { createClient, RedisClientType } from 'redis';
-import { config, createLogger } from '@root/config/env/config';
+import { config } from '@root/config/env/config';
 
-const log: Logger = createLogger('redis-connection');
+const log: Logger = bunyanLogger('redis-connection');
 
 type RedisClient = ReturnType<typeof createClient>;
 let pubClient: RedisClientType;
@@ -13,7 +14,7 @@ async function connectToRedis(cacheName?: string): Promise<{ pubClient: RedisCli
   try {
     const client: RedisClient = createClient({ url: config.REDIS_HOST });
     if (cacheName) {
-      clientLogger = createLogger(cacheName);
+      clientLogger = bunyanLogger(cacheName);
     }
 
     client.on('error', (error: unknown) => {

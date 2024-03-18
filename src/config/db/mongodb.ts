@@ -1,8 +1,9 @@
 import Logger from 'bunyan';
+import bunyanLogger from '@root/config/logger/bunyanLogger';
 import mongoose, { Mongoose } from 'mongoose';
-import { config, createLogger } from '@root/config/env/config';
+import { config } from '@root/config/env/config';
 
-const log: Logger = createLogger('mongodb-connection');
+const log: Logger = bunyanLogger('mongodb-connection');
 let dbConnection: Mongoose;
 
 async function connectToMongoDB(): Promise<void> {

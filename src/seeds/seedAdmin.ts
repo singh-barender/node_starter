@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import connectToMongoDB from '@root/config/db/mongodb';
+import bunyanLogger from '@root/config/logger/bunyanLogger';
 import UserModel from '@root/features/users/models/userModel';
-import { createLogger } from '@root/config/env/config';
 import { generateHashPassword } from '@root/globals/jwt/services';
 
-const log = createLogger('seed-admin');
+const log = bunyanLogger('seed-admin');
 
 async function closeConnection(success: boolean): Promise<void> {
   try {
