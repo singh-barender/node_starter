@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import bunyan from 'bunyan';
 import { Config } from '@root/types/configTypes';
 
 dotenv.config({});
@@ -50,9 +49,5 @@ function validateConfig(config: Config): void {
 
 const config: Config = getConfig();
 validateConfig(config);
-
-export function createLogger(name: string): bunyan {
-  return bunyan.createLogger({ name, level: 'debug' });
-}
 
 export { config, validateConfig };

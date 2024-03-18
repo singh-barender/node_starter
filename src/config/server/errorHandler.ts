@@ -1,9 +1,9 @@
 import HTTP_STATUS from 'http-status-codes';
-import { createLogger } from '@root/config/env/config';
+import bunyanLogger from '@root/config/logger/bunyanLogger';
 import { CustomError } from '@root/config/errors/globalErrors';
 import { Application, Response, Request, NextFunction } from 'express';
 
-const log = createLogger('server');
+const log = bunyanLogger('server');
 
 function setupErrorHandlingMiddleware(app: Application) {
   app.all('*', (req: Request, res: Response) => {
