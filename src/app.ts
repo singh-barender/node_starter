@@ -8,9 +8,9 @@ import bunyanLogger from '@root/config/logger/bunyanLogger';
 import apiMonitoring from '@root/config/server/apiMonitoring';
 import setupSecurityMiddleware from '@root/config/server/securityLayer';
 import setupStandardMiddleware from '@root/config/server/standardLayer';
+import gracefulExitHandler from '@root/config/errors/gracefulExitHandler';
 import setupErrorHandlingMiddleware from '@root/config/server/errorHandler';
 import { config } from '@root/config/env/config';
-import { handleShutdownSignals, handleUncaughtErrors } from '@root/config/errors/serverHandler';
 
 import 'express-async-errors';
 
@@ -37,13 +37,12 @@ async function setupServer(): Promise<http.Server> {
 
 async function startServer(): Promise<void> {
   try {
-    const server = await setupServer();
+    const server: http.Server = await setupServer();
     server.listen(config.PORT, () => {
       log.info(`Server running on port ${config.PORT}`);
     });
-    handleUncaughtErrors(server);
-    handleShutdownSignals(server);
   } catch (error) {
+    log.error('Failed to start server:', error);
     process.exit(1);
   }
 }
@@ -53,4 +52,4 @@ startServer().catch((error) => {
   process.exit(1);
 });
 
-export default app;
+gracefulExitHandler(log);
