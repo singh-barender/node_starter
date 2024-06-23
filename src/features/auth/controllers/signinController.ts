@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { config } from '@root/config/env/config';

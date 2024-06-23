@@ -21,7 +21,7 @@ const signup = async (req: Request<unknown, unknown, IRegisterUser, unknown>, re
   // Save user to cache
   await saveUserToCache(newUser);
   // Generate activation token
-  const activationToken = await generateActivationToken(newUser._id as string);
+  const activationToken = await generateActivationToken(newUser._id);
   const activationLink = `${config.CLIENT_URL}/account-activation?token=${activationToken}`;
   const template: string = accountActivationTemplate(activationLink);
   // Send activation email

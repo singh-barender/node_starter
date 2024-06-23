@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import cookieSession from 'cookie-session';
 import rateLimit from 'express-rate-limit';
 
-function setupSecurityMiddleware(app: Application) {
+function setupSecurityMiddleware(app: Application): void {
   app.set('trust proxy', 1);
   app.use(hpp());
   app.use(helmet());
@@ -21,7 +21,7 @@ function setupSecurityMiddleware(app: Application) {
   );
   app.use(
     cors({
-      origin: config.CLIENT_URL,
+      origin: config.NODE_ENV === 'development' ? '*' : config.CLIENT_URL,
       credentials: true,
       optionsSuccessStatus: 200,
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']

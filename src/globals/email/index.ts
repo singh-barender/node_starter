@@ -7,7 +7,7 @@ import { IMailOptions } from '@root/types/emailTypes';
 import { BadRequestError } from '@root/config/errors/globalErrors';
 
 sendGridMail.setApiKey(config.SENDGRID_API_KEY);
-const log: Logger = bunyanLogger('mailOptions');
+const log: Logger = bunyanLogger('mailer-config');
 
 async function sendWithNodemailer(mailOptions: IMailOptions): Promise<void> {
   const transporter = nodemailer.createTransport({
