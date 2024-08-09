@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IRegisterUser, IUser } from '@root/types/userTypes';
 import UserModel from '@root/features/users/models/userModel';
+import { FilterQuery, UpdateQuery } from 'mongoose';
 
 export const findUserByEmailOrUsername = async (emailOrUsername: string): Promise<IUser | null> => {
   return await UserModel.findOne({ $or: [{ username: emailOrUsername }, { email: emailOrUsername }] });
@@ -16,11 +16,13 @@ export const findById = async (userId: string): Promise<IUser | null> => {
   return await UserModel.findById(userId);
 };
 
-export const findOneByField = async (args: any): Promise<IUser | null> => {
+// Update with specific type
+export const findOneByField = async (args: FilterQuery<IUser>): Promise<IUser | null> => {
   return await UserModel.findOne(args);
 };
 
-export const findAndUpdateById = async (userId: string, updateData: any): Promise<IUser | null> => {
+// Update with specific type
+export const findAndUpdateById = async (userId: string, updateData: UpdateQuery<IUser>): Promise<IUser | null> => {
   return await UserModel.findByIdAndUpdate(userId, updateData, { new: true });
 };
 

@@ -37,7 +37,7 @@ Accept: application/json
 withCredentials: true
 
 {
-    "email": "gdeep@example.com",
+    "email": "admin@example.com",
     "password": "Test@123"
 }
 
