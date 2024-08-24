@@ -20,7 +20,7 @@ const userSchema = new Schema<IUser>(
   },
   {
     toJSON: {
-      transform: function (_doc: Document, ret: { password: any; __v: any }) {
+      transform(doc, ret) {
         delete ret.password;
         delete ret.__v;
       }

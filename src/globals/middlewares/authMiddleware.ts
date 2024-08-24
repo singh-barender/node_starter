@@ -16,6 +16,7 @@ export const protectRoute = (req: Request, res: Response, next: NextFunction) =>
       req.user = user;
       next();
     } catch (error) {
+      console.log('protect route error: ' + error);
       next(new NotAuthorizedError('Invalid request without token.'));
     }
   })();
